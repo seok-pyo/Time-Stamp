@@ -1,0 +1,53 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Time_stamp</title>
+  </head>
+  <body>
+    <button class="button1">START</button>
+    <button class="button2">END</button>
+  </body>
+  <script src="script.js"></script>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <body>
+    <button id="myButton">클릭하세요</button>
+    <p id="timeDiff"></p>
+
+    <script>
+      function createTimer() {
+        let startTime = 0;
+        return function () {
+          if (startTime === 0) {
+            startTime = Date.now();
+            return "몰입중...";
+          } else {
+            const endTime = Date.now();
+            const diff = endTime - startTime;
+            startTime = 0; // 초기화
+            return `${startTime} ${endTime} 두 번째 클릭까지의 시간 차이: ${diff} 밀리초`;
+          }
+        };
+      }
+
+      // 클릭 이벤트 핸들러를 정의
+      const button = document.getElementById("myButton");
+      const timeDiffDisplay = document.getElementById("timeDiff");
+      let timer = null; // 초기에 타이머를 null로 설정
+
+      button.addEventListener("click", function () {
+        if (!timer) {
+          timer = createTimer(); // 클릭 시 시간 측정 시작
+        }
+        const timeDifference = timer();
+
+        timeDiffDisplay.innerHTML += `<br>${timeDifference}`;
+      });
+    </script>
+  </body>
+</html>
