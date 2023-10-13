@@ -17,20 +17,32 @@
 <html>
   <body>
     <button id="myButton">클릭하세요</button>
+    <p id="today"></p>
     <p id="timeDiff"></p>
 
     <script>
+      function mTom(milsec) {
+        let sec = parseInt(milsec / 1000);
+        let hour = parseInt(sec / 3600);
+        let min = parseInt((sec % 3600) / 60);
+        let fsec = (sec % 3600) % 60;
+        return `${hour}시간, ${min}분, ${fsec}초`;
+      }
+
       function createTimer() {
         let startTime = 0;
         return function () {
           if (startTime === 0) {
             startTime = Date.now();
-            return "몰입중...";
+            const start_ = new Date();
+            return `몰입 시작: ${start_.getHours()} : ${start_.getMinutes()} : ${start_.getSeconds()}`;
           } else {
             const endTime = Date.now();
             const diff = endTime - startTime;
+            const result = mTom(diff);
             startTime = 0; // 초기화
-            return `${startTime} ${endTime} 두 번째 클릭까지의 시간 차이: ${diff} 밀리초`;
+
+            return `몰입 시간: ${result} <br> `;
           }
         };
       }
@@ -39,6 +51,15 @@
       const button = document.getElementById("myButton");
       const timeDiffDisplay = document.getElementById("timeDiff");
       let timer = null; // 초기에 타이머를 null로 설정
+      const timeArray = JSON.parse(localStorage.getItem("ts")) || [];
+      timeArray.forEach((v) => {
+        timeDiffDisplay.innerHTML += `${v}<br>`;
+      });
+      const today = document.getElementById("today");
+      const today_t = new Date();
+      today.innerHTML = `${today_t.getFullYear()}. ${
+        today_t.getMonth() + 1
+      }. ${today_t.getDay()}.`;
 
       button.addEventListener("click", function () {
         if (!timer) {
@@ -46,7 +67,13 @@
         }
         const timeDifference = timer();
 
-        timeDiffDisplay.innerHTML += `<br>${timeDifference}`;
+        const localData = JSON.parse(localStorage.getItem("ts")) || [];
+        localData.push(timeDifference);
+        localStorage.setItem("ts", JSON.stringify(localData));
+        timeDiffDisplay.innerHTML = "";
+        localData.forEach((v) => {
+          timeDiffDisplay.innerHTML += `${v}<br>`;
+        });
       });
     </script>
   </body>
