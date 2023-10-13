@@ -5,25 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Time_stamp</title>
     <style>
-      #screenshot {
-        width: 400px;
+      * {
+        margin: 0;
+        padding: 0;
+      }
 
-        background-color: aquamarine;
-        padding: 15px;
+      body {
+        background-color: aqua;
+      }
+
+      img {
+        width: 125px;
+        margin-bottom: 10px;
+      }
+
+      #stamp {
+        position: absolute;
+        width: 280px;
+        padding: 10px;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: aliceblue;
+        overflow-y: auto;
+        max-height: 95vh;
+      }
+
+      #myButton {
+        position: absolute;
+        top: 50px;
+        left: 50%;
+        transform: translate(-50%);
+      }
+
+      #container1 {
+        position: absolute;
+        bottom: 75px;
+        left: 50%;
+        transform: translate(-50%);
+      }
+
+      #container2 {
+        position: absolute;
+        bottom: 25px;
+        left: 50%;
+        transform: translate(-50%);
       }
     </style>
   </head>
   <body>
-    <button id="myButton">클릭하세요</button>
-    <button id="clearButton">비우기</button>
-    <div id="screenshot">
+    <div id="stamp">
+      <img src="./img/logo.webp" />
+      <p id="name">이름 :</p>
+      <br />
       <p id="today"></p>
       <p id="timeDiff"></p>
     </div>
-    <button id="captureButton">Capture!</button>
+    <button id="myButton">몰입 시작하기</button>
+    <div id="container1">
+      <button id="clearButton">전체 비우기</button>
+      <button id="captureButton">이미지로 저장</button>
+    </div>
+    <div id="container2">
+      <input
+        id="entername"
+        type="text"
+        required
+        placeholder="이름을 입력하세용"
+      />
+      <input id="submitname" type="submit" value="입력" />
+      <button id="clearName">이름 다시 적기</button>
+    </div>
   </body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
   <script src="script.js"></script>
-  <script src="html2canvas.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.2/html2canvas.min.js"></script>
+  <script src="htmlcanvas.js"></script>
+  <script src="inputname.js"></script>
   <!-- html2canvas is created by Niklas von Hertzen. Licensed under the MIT License. -->
 </html>
