@@ -28,15 +28,21 @@
         transform: translate(-50%, -50%);
         background-color: aliceblue;
         overflow-y: auto;
-        max-height: 95vh;
+        max-height: 70vh;
       }
 
-      #myButton {
+      #button_con {
         position: absolute;
         top: 50px;
         left: 50%;
         transform: translate(-50%);
       }
+      /* #stopButton {
+        position: absolute;
+        top: 50px;
+        left: 30%;
+        transform: translate(-50%);
+      } */
 
       #container1 {
         position: absolute;
@@ -61,7 +67,10 @@
       <p id="today"></p>
       <p id="timeDiff"></p>
     </div>
-    <button id="myButton">몰입 시작하기</button>
+    <div id="button_con">
+      <button id="myButton">몰입 시작하기</button>
+      <button id="stopButton">몰입 마무리하기</button>
+    </div>
     <div id="container1">
       <button id="clearButton">전체 비우기</button>
       <button id="captureButton">이미지로 저장</button>
