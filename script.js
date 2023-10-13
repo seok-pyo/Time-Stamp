@@ -53,6 +53,7 @@ function createTimer() {
 
 // 클릭 이벤트 핸들러를 정의
 const button = document.getElementById("myButton");
+const cButton = document.getElementById("clearButton");
 const timeDiffDisplay = document.getElementById("timeDiff");
 let timer = null; // 초기에 타이머를 null로 설정
 const timeArray = JSON.parse(localStorage.getItem("ts")) || [];
@@ -80,17 +81,7 @@ button.addEventListener("click", function () {
   });
 });
 
-document.getElementById("captureButton").addEventListener("click", function () {
-  html2canvas(document.getElementById("screenshot")).then(function (canvas) {
-    // 캡처된 스크린샷을 이미지로 변환
-    var image = canvas.toDataURL("image/png");
-
-    // 이미지를 다운로드할 링크를 생성
-    var a = document.createElement("a");
-    a.href = image;
-    a.download = "screenshot.png"; // 다운로드 파일 이름 설정
-    a.style.display = "none";
-    document.body.appendChild(a);
-    a.click();
-  });
+cButton.addEventListener("click", () => {
+  localStorage.clear();
+  timeDiffDisplay.innerHTML = "";
 });
