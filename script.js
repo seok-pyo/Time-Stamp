@@ -3,71 +3,17 @@ function msTom(milsec) {
   let hour = parseInt(sec / 3600);
   let min = parseInt((sec % 3600) / 60);
   let fsec = (sec % 3600) % 60;
-  return `${hour}시간, ${min}분, ${fsec}초`;
+  return `${hour}시간 ${min}분 ${fsec}초`;
 }
-
-// function createTimer() {
-//   let startTime = 0;
-//   return function () {
-//     if (startTime === 0) {
-//       startTime = Date.now();
-//       const start_ = new Date();
-//       return `<br>몰입 시작: ${start_.getHours()} : ${start_.getMinutes()} : ${start_.getSeconds()}`;
-//     } else {
-//       const endTime = Date.now();
-//       const diff = endTime - startTime;
-//       const result = msTom(diff);
-//       startTime = 0; // 초기화
-
-//       return `몰입한 시간: ${result} `;
-//     }
-//   };
-// }
-
-// function stopTimer(startTime) {}
-
-// // 클릭 이벤트 핸들러를 정의
-// const button = document.getElementById("myButton");
-// const cButton = document.getElementById("clearButton");
-// const timeDiffDisplay = document.getElementById("timeDiff");
-// let timer = null; // 초기에 타이머를 null로 설정
-// const timeArray = JSON.parse(localStorage.getItem("ts")) || [];
-// timeArray.forEach((v) => {
-//   timeDiffDisplay.innerHTML += `${v}<br>`;
-// });
-
-// const today = document.getElementById("today");
-// const today_t = new Date();
-// today.innerHTML = `${today_t.getFullYear()}. ${
-//   today_t.getMonth() + 1
-// }. ${today_t.getDate()}.`;
-
-// button.addEventListener("click", function () {
-//   if (!timer) {
-//     timer = createTimer(); // 클릭 시 시간 측정 시작
-//   }
-
-//   const timeDifference = timer();
-//   const localData = JSON.parse(localStorage.getItem("ts")) || [];
-//   localData.push(timeDifference);
-//   localStorage.setItem("ts", JSON.stringify(localData));
-//   timeDiffDisplay.innerHTML = "";
-//   localData.forEach((v) => {
-//     timeDiffDisplay.innerHTML += `${v}<br>`;
-//   });
-// });
-
-// cButton.addEventListener("click", () => {
-//   localStorage.clear();
-//   timeDiffDisplay.innerHTML = "";
-// });
 
 function startTimer() {
   const startTime = Date.now();
   const start_ = new Date();
   return {
     startTime: startTime,
-    startMessage: `<br>몰입 시작: ${start_.getHours()} : ${start_.getMinutes()} : ${start_.getSeconds()}`,
+    startMessage: `<br>몰입 시작: [${start_.getFullYear()}.${
+      start_.getMonth() + 1
+    }.${start_.getDate()}] ${start_.getHours()} : ${start_.getMinutes()} : ${start_.getSeconds()}`,
   };
 }
 
@@ -84,18 +30,18 @@ function stopTimer(startTime) {
 // 클릭 이벤트 핸들러를 정의
 const button = document.getElementById("myButton");
 const stopButton = document.getElementById("stopButton");
-const cButton = document.getElementById("clearButton");
+const clearButton = document.getElementById("clearButton");
 const timeDiffDisplay = document.getElementById("timeDiff");
 const timeArray = JSON.parse(localStorage.getItem("ts")) || [];
 timeArray.forEach((v) => {
   timeDiffDisplay.innerHTML += `${v}<br>`;
 });
 
-const today = document.getElementById("today");
-const today_t = new Date();
-today.innerHTML = `${today_t.getFullYear()}. ${
-  today_t.getMonth() + 1
-}. ${today_t.getDate()}.`;
+// const today = document.getElementById("today");
+// const today_t = new Date();
+// today.innerHTML = `${today_t.getFullYear()}. ${
+//   today_t.getMonth() + 1
+// }. ${today_t.getDate()}.`;
 
 let timer = null; // 초기에 타이머를 null로 설정
 
@@ -103,6 +49,8 @@ button.addEventListener("click", function () {
   if (!timer) {
     timer = startTimer();
   }
+  button.style.backgroundColor = "white";
+  stopButton.style.backgroundColor = "aqua";
   const { startMessage } = timer;
   const localData = JSON.parse(localStorage.getItem("ts")) || [];
   localData.push(startMessage);
@@ -117,6 +65,8 @@ stopButton.addEventListener("click", () => {
   if (timer) {
     const { startTime } = timer;
     timer = null;
+    button.style.backgroundColor = "aqua";
+    stopButton.style.backgroundColor = "white";
     const { timeDifference } = stopTimer(startTime);
     const localData = JSON.parse(localStorage.getItem("ts")) || [];
     localData.push(timeDifference);
@@ -128,22 +78,7 @@ stopButton.addEventListener("click", () => {
   }
 });
 
-// button.addEventListener("click", function () {
-//   if (!timer) {
-//     timer = createTimer(); // 클릭 시 시간 측정 시작
-//   }
-
-//   const timeDifference = timer();
-//   const localData = JSON.parse(localStorage.getItem("ts")) || [];
-//   localData.push(timeDifference);
-//   localStorage.setItem("ts", JSON.stringify(localData));
-//   timeDiffDisplay.innerHTML = "";
-//   localData.forEach((v) => {
-//     timeDiffDisplay.innerHTML += `${v}<br>`;
-//   });
-// });
-
-cButton.addEventListener("click", () => {
+clearButton.addEventListener("click", () => {
   localStorage.clear();
   timeDiffDisplay.innerHTML = "";
 });

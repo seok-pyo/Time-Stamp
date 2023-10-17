@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Hahmlet&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Hahmlet", serif;
+}
+
+body {
+  background-color: rgb(4, 4, 34);
+}
+
+img {
+  width: 125px;
+  margin-bottom: 10px;
+}
+
+button,
+input {
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  /* background-color: white; */
+  border: 0;
+}
+
+button {
+  background-color: white;
+}
+
+#stamp {
+  position: absolute;
+  width: 280px;
+  padding: 10px;
+  top: 10%;
+  left: 50%;
+
+  transform: translate(-50%);
+  background-color: aliceblue;
+}
+
+#myButton {
+  background-color: aqua;
+}
+
+#button_con {
+  position: fixed;
+  top: 50px;
+  left: 50%;
+  top: 3%;
+  transform: translate(-50%);
+}
+
+#container1 {
+  position: fixed;
+  bottom: 75px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#container2 {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translate(-50%);
+}

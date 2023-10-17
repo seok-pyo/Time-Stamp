@@ -3,64 +3,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Time_stamp</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        background-color: aqua;
-      }
-
-      img {
-        width: 125px;
-        margin-bottom: 10px;
-      }
-
-      #stamp {
-        position: absolute;
-        width: 280px;
-        padding: 10px;
-        top: 10%;
-        left: 50%;
-
-        transform: translate(-50%);
-        background-color: aliceblue;
-        /* overflow-y: auto;
-        max-height: 70vh; */
-      }
-
-      #button_con {
-        position: fixed;
-        top: 50px;
-        left: 50%;
-        top: 5%;
-        transform: translate(-50%);
-      }
-
-      #container1 {
-        position: fixed;
-        bottom: 75px;
-        left: 50%;
-        transform: translate(-50%);
-      }
-
-      #container2 {
-        position: fixed;
-        bottom: 25px;
-        left: 50%;
-        transform: translate(-50%);
-      }
-    </style>
+    <meta
+      property="og:image"
+      content="https://time-stamp.neocities.org/OGImage.png"
+    />
+    <meta property="og:description" content="몰입의 기록" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="icon" href="fav.png" />
+    <title>Time-stamp</title>
   </head>
   <body>
     <div id="stamp">
-      <img src="./img/logo.webp" />
+      <img src="./img/logo_2.webp" />
       <p id="name">이름 :</p>
-      <br />
-      <p id="today"></p>
+
+      <!-- <p id="today"></p> -->
       <p id="timeDiff"></p>
     </div>
     <div id="button_con">
@@ -78,7 +35,7 @@
         required
         placeholder="이름을 입력하세용"
       />
-      <input id="submitname" type="submit" value="입력" />
+      <input id="submitname" type="submit" value="이름 입력" />
       <button id="clearName">이름 다시 적기</button>
     </div>
   </body>
