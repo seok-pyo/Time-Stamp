@@ -54,7 +54,16 @@ button {
 
 #container1 {
   position: fixed;
-  bottom: 5vh;
+  bottom: 10vh;
   left: 50%;
   transform: translate(-50%);
+}
+
+#mail {
+  color: blueviolet;
+  position: fixed;
+  font-size: 14px;
+  transform: translate(-50%);
+  bottom: 5vh;
+  left: 50%;
 }
