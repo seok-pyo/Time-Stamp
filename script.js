@@ -43,42 +43,57 @@ timeArray.forEach((v) => {
 //   today_t.getMonth() + 1
 // }. ${today_t.getDate()}.`;
 
-let timer = null; // 초기에 타이머를 null로 설정
+let timer = JSON.parse(localStorage.getItem("timer")) || null; // 초기에 타이머를 null로 설정
 
 button.addEventListener("click", function () {
-  if (!timer) {
+  const check_storage = localStorage.getItem("tc") || null;
+  if (!timer && !check_storage) {
     timer = startTimer();
-  }
-  button.style.backgroundColor = "white";
-  stopButton.style.backgroundColor = "aqua";
-  const { startMessage } = timer;
-  const localData = JSON.parse(localStorage.getItem("ts")) || [];
-  localData.push(startMessage);
-  localStorage.setItem("ts", JSON.stringify(localData));
-  timeDiffDisplay.innerHTML = "";
-  localData.forEach((v) => {
-    timeDiffDisplay.innerHTML += `${v}<br>`;
-  });
-});
-
-stopButton.addEventListener("click", () => {
-  if (timer) {
+    localStorage.setItem("timer", JSON.stringify(timer));
+    const { startMessage } = JSON.parse(localStorage.getItem("timer"));
+    const localData = JSON.parse(localStorage.getItem("ts")) || [];
+    localData.push(startMessage);
+    localStorage.setItem("ts", JSON.stringify(localData));
+    localStorage.setItem("tc", "check");
+    timeDiffDisplay.innerHTML = "";
+    localData.forEach((v) => {
+      timeDiffDisplay.innerHTML += `${v}<br>`;
+    });
+  } else if (timer) {
     const { startTime } = timer;
     timer = null;
-    button.style.backgroundColor = "aqua";
-    stopButton.style.backgroundColor = "white";
-    const { timeDifference } = stopTimer(startTime);
     const localData = JSON.parse(localStorage.getItem("ts")) || [];
+    const { timeDifference } = stopTimer(startTime);
     localData.push(timeDifference);
     localStorage.setItem("ts", JSON.stringify(localData));
     timeDiffDisplay.innerHTML = "";
     localData.forEach((v) => {
       timeDiffDisplay.innerHTML += `${v}<br>`;
     });
+    localStorage.removeItem("tc");
   }
 });
+
+// stopButton.addEventListener("click", () => {
+//   localStorage.removeItem("tc");
+//   if (timer) {
+//     const { startTime } = timer;
+//     timer = null;
+//     // button.style.backgroundColor = "aqua";
+//     // stopButton.style.backgroundColor = "white";
+//     const { timeDifference } = stopTimer(startTime);
+//     const localData = JSON.parse(localStorage.getItem("ts")) || [];
+//     localData.push(timeDifference);
+//     localStorage.setItem("ts", JSON.stringify(localData));
+//     timeDiffDisplay.innerHTML = "";
+//     localData.forEach((v) => {
+//       timeDiffDisplay.innerHTML += `${v}<br>`;
+//     });
+//   }
+// });
 
 clearButton.addEventListener("click", () => {
   localStorage.clear();
   timeDiffDisplay.innerHTML = "";
+  location.reload(true);
 });
