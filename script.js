@@ -1,3 +1,4 @@
+// 밀리초 변환 (ms -> s)
 function msTom(milsec) {
   let sec = parseInt(milsec / 1000);
   let hour = parseInt(sec / 3600);
@@ -29,7 +30,6 @@ function stopTimer(startTime) {
 
 // 클릭 이벤트 핸들러를 정의
 const button = document.getElementById("myButton");
-const stopButton = document.getElementById("stopButton");
 const clearButton = document.getElementById("clearButton");
 const timeDiffDisplay = document.getElementById("timeDiff");
 const timeArray = JSON.parse(localStorage.getItem("ts")) || [];
@@ -37,29 +37,37 @@ timeArray.forEach((v) => {
   timeDiffDisplay.innerHTML += `${v}<br>`;
 });
 
-// const today = document.getElementById("today");
-// const today_t = new Date();
-// today.innerHTML = `${today_t.getFullYear()}. ${
-//   today_t.getMonth() + 1
-// }. ${today_t.getDate()}.`;
-
 let timer = JSON.parse(localStorage.getItem("timer")) || null; // 초기에 타이머를 null로 설정
 
+localStorage.setItem("button", "몰입 시작하기");
+let button_text = JSON.stringify(localStorage.getItem("button"));
+button.innerHTML = button_text.replace(/"/g, "");
+
 button.addEventListener("click", function () {
+  // 클릭 시 토글 기능
   const check_storage = localStorage.getItem("tc") || null;
+
   if (!timer && !check_storage) {
+    // 몰입 시작
     timer = startTimer();
     localStorage.setItem("timer", JSON.stringify(timer));
     const { startMessage } = JSON.parse(localStorage.getItem("timer"));
     const localData = JSON.parse(localStorage.getItem("ts")) || [];
     localData.push(startMessage);
     localStorage.setItem("ts", JSON.stringify(localData));
+    // 몰입하기 버튼 클릭 시 토글 기능
     localStorage.setItem("tc", "check");
+    // 몰입 시간 DOM 렌더링
     timeDiffDisplay.innerHTML = "";
     localData.forEach((v) => {
       timeDiffDisplay.innerHTML += `${v}<br>`;
     });
+    // 버튼 텍스트 로컬스토리지에 저장
+    localStorage.setItem("button", "몰입 마무리하기");
+    let button_text = JSON.stringify(localStorage.getItem("button"));
+    button.innerHTML = button_text.replace(/"/g, "");
   } else if (timer) {
+    // 몰입 마무리, 몰입 시간 출력
     const { startTime } = timer;
     timer = null;
     const localData = JSON.parse(localStorage.getItem("ts")) || [];
@@ -67,33 +75,25 @@ button.addEventListener("click", function () {
     localData.push(timeDifference);
     localStorage.setItem("ts", JSON.stringify(localData));
     timeDiffDisplay.innerHTML = "";
+    // 몰입하기 버튼 클릭 시 토글 기능
+    localStorage.removeItem("tc");
+    // 몰입 시간 DOM 렌더링
     localData.forEach((v) => {
       timeDiffDisplay.innerHTML += `${v}<br>`;
     });
-    localStorage.removeItem("tc");
+
+    // 버튼 텍스트 로컬스토리지에 저장
+    localStorage.setItem("button", "몰입 시작하기");
+    let button_text_2 = JSON.stringify(localStorage.getItem("button"));
+    button.innerHTML = button_text_2.replace(/"/g, "");
   }
 });
 
-// stopButton.addEventListener("click", () => {
-//   localStorage.removeItem("tc");
-//   if (timer) {
-//     const { startTime } = timer;
-//     timer = null;
-//     // button.style.backgroundColor = "aqua";
-//     // stopButton.style.backgroundColor = "white";
-//     const { timeDifference } = stopTimer(startTime);
-//     const localData = JSON.parse(localStorage.getItem("ts")) || [];
-//     localData.push(timeDifference);
-//     localStorage.setItem("ts", JSON.stringify(localData));
-//     timeDiffDisplay.innerHTML = "";
-//     localData.forEach((v) => {
-//       timeDiffDisplay.innerHTML += `${v}<br>`;
-//     });
-//   }
-// });
-
+// 로컬 스토리지 지우고, 리로드
 clearButton.addEventListener("click", () => {
-  localStorage.clear();
+  localStorage.removeItem("ts");
+  localStorage.removeItem("tc");
+  localStorage.removeItem("timer");
   timeDiffDisplay.innerHTML = "";
   location.reload(true);
 });
